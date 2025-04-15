@@ -1,0 +1,29 @@
+{
+  "name": "bot-checker-status-domains",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/app.js",
+    "build": "tsc",
+    "dev": "tsc --watch & nodemon ./dist/src/app.js",
+    "knex:migrate-dev": "knex migrate:latest",
+    "knex:migrate-prod": "knex migrate:latest --env production",
+    "knex:seed": "knex seed:run"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "grammy": "^1.36.0",
+    "knex": "^3.1.0",
+    "node-cron": "^3.0.3",
+    "pg": "^8.14.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node-cron": "^3.0.11",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
