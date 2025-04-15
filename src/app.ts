@@ -13,10 +13,7 @@ app.use(webhookCallback(bot, 'express'));
 
 schedule(configuration.cron.every10Second, cronTaskCheckDomain);
 
-app.post('/webhook', (req, res) => {
-  console.log('Webhook received:', req.body);
-  res.status(200).send('Webhook received');
-});
+app.use('/webhook', webhookCallback(bot, 'express'));
 
 app.listen(PORT, async () => {
   console.log(`Сервер вебхуков запущен на порту ${PORT}`);
