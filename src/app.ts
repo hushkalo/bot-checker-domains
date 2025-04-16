@@ -9,7 +9,6 @@ const app = express();
 const PORT = configuration.server.port;
 
 app.use(express.json());
-app.use(webhookCallback(bot, 'express'));
 
 schedule(configuration.cron.every10Second, cronTaskCheckDomain);
 
@@ -21,6 +20,7 @@ app.listen(PORT, async () => {
   const webhookURL = configuration.telegram.webhook || '';
   await bot.api.setWebhook(webhookURL);
   console.log(`Вебхук установлен на ${webhookURL}`);
+  console.log(`ENV: ${configuration.server.nodeEnvironment}`);
 });
 
 console.log('Бот запущен!');
