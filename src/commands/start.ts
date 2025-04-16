@@ -16,6 +16,7 @@ export const startCommand = async (ctx: CommandContext<MyContext>) => {
     const domains = await db('domain');
     const checkDomainsPromises = domains.map((domain) => checkDomain(domain));
     const checkDomainsResult = await Promise.all(checkDomainsPromises);
+    ctx.session.hasStarted = true;
     ctx.session.name = ctx.from?.first_name || 'User';
     ctx.session.lastAction = 'start';
     ctx.session.noticesDomain = {};
