@@ -58,5 +58,8 @@ export const configuration = {
     every1Minute: '*/1 * * * *',
     every5Minute: '*/5 * * * *',
   },
-  nodeEnvironment: process.env.NODE_ENV || 'development',
+  server: {
+    nodeEnvironment: process.env.NODE_ENV || 'development',
+    port: Number(process.env.PORT) || 8080,
+  },
 };

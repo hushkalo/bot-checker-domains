@@ -6,14 +6,14 @@ import { configuration } from './config';
 import { cronTaskCheckDomain } from './cron';
 
 const app = express();
-const PORT = 3002;
+const PORT = configuration.server.port;
 
 app.use(express.json());
 app.use(webhookCallback(bot, 'express'));
 
 schedule(configuration.cron.every10Second, cronTaskCheckDomain);
 
-app.use('/webhook', webhookCallback(bot, 'express'));
+app.post('/webhook', webhookCallback(bot, 'express'));
 
 app.listen(PORT, async () => {
   console.log(`Сервер вебхуков запущен на порту ${PORT}`);
