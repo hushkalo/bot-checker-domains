@@ -23,4 +23,4 @@ app.listen(PORT, async () => {
   console.log(`ENV: ${configuration.server.nodeEnvironment}`);
 });
 
-console.log('Бот запущен!');
+console.log(new Date().toISOString(), ' Бот запущен!');
