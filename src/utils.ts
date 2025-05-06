@@ -69,7 +69,7 @@ export const checkDomain = async (
 ): Promise<ResponseCheckAvailableDomain> => {
   try {
     const response = await axios.get(domain.url, {
-      timeout: 5000,
+      timeout: 30000,
     });
     await db('domain').where({ id: domain.id }).update({
       status: 'success',

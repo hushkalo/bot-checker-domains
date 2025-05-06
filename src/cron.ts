@@ -4,7 +4,6 @@ import {
   generateTelegramMessageForDomainStatus,
   generateUserDataNoticeDomain,
 } from './utils';
-import type { TNoticesDomain } from './types/knex';
 import type { DomainStatusNotice } from './types/common.type';
 import bot from './bot';
 
