@@ -56,6 +56,8 @@ export const configuration = {
     every20Second: '*/20 * * * * *',
     every30Second: '*/30 * * * * *',
     every1Minute: '*/1 * * * *',
+    every2Minute: '*/2 * * * *',
+    every3Minute: '*/3 * * * *',
     every5Minute: '*/5 * * * *',
   },
   server: {

@@ -10,7 +10,7 @@ const PORT = configuration.server.port;
 
 app.use(express.json());
 
-schedule(configuration.cron.every1Minute, cronTaskCheckDomain);
+schedule(configuration.cron.every2Minute, cronTaskCheckDomain);
 
 app.post('/webhook', webhookCallback(bot, 'express'));
 
