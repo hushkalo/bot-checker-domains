@@ -6,6 +6,7 @@ import axios, { AxiosError } from 'axios';
 import { db } from './database/db';
 import { CheckDomain, User } from 'knex/types/tables';
 import type { TNoticesDomain, UserData } from './types/knex';
+import { axiosErrorCodeMap } from './maps/error-code.map';
 
 export const generateTelegramResponse = (
   data: ResponseCheckAvailableDomain[]
@@ -84,27 +85,44 @@ export const checkDomain = async (
       url: domain.url,
     };
   } catch (error) {
-    const status =
+    const statusCode =
       error instanceof AxiosError ? (error.response?.status ?? 0) : 0;
     const message =
       error instanceof AxiosError ? error.message : 'Unknown error';
 
     let dbStatus = 'error';
-    if (error instanceof AxiosError && error.code === 'ECONNABORTED') {
-      dbStatus = 'timeout';
+    if (error instanceof AxiosError && error.code) {
+      if (error.code === 'ECONNABORTED') {
+        dbStatus = 'timeout';
+      } else {
+        dbStatus =
+          axiosErrorCodeMap[error.code] || `Unknown error code: ${error.code}`;
+        await db('domain').where({ id: domain.id }).update({
+          status: error.code,
+          message,
+          status_code: 0,
+        });
+        return {
+          status: error.code,
+          name: domain.name,
+          message: dbStatus,
+          status_code: 0,
+          url: domain.url,
+        };
+      }
     }
 
     await db('domain').where({ id: domain.id }).update({
       status: dbStatus,
       message,
-      status_code: status,
+      status_code: statusCode,
     });
 
     return {
       status: 'error',
       message,
       name: domain.name,
-      status_code: status,
+      status_code: statusCode,
       url: domain.url,
     };
   }
